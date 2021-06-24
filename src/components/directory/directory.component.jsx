@@ -30,20 +30,22 @@ const Directory = () => {
           imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
           size: 'large',
           id: 4,
-          linkUrl: 'shop/womens'
+          linkUrl: 'shop/womens',
+          expand: true
         },
         {
           title: 'mens',
           imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
           size: 'large',
           id: 5,
-          linkUrl: 'shop/mens'
+          linkUrl: 'shop/mens',
+          expand: true
         }
       ]);
 
     return (
         <div className="directory-menu">
-            {menuItems.map(item=><MenuItem key={item.id} title={item.title} />)}
+            {menuItems.map(item=><MenuItem key={item.id} title={item.title} imageUrl={item.imageUrl} expand={item.expand} linkUrl={item.linkUrl} />)}
         </div>
     )
 }
