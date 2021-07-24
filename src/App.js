@@ -1,4 +1,4 @@
-import { Route,Switch } from 'react-router-dom'
+import { Route,Switch,Redirect } from 'react-router-dom'
 import {useEffect,useState} from 'react'
 import {connect} from 'react-redux'
 
@@ -54,15 +54,22 @@ function App(props) {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={Shop} />
-        <Route path='/sign-in' component={SignInAndSignUpPage} />
+        <Route exact path='/sign-in' render={()=>props.currentUser ? (<Redirect to='/' />):(<SignInAndSignUpPage />)} />
       </Switch>
       
     </div>
   );
 }
 
+
+const mapStateToProps = ({user}) => {
+  return {
+    currentUser:user.currentUser
+  }
+}
+
 const mapDispatchToProps = dispatch=>({
   setCurrentUser:(user)=>dispatch(setCurrentUser(user))
 });
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
