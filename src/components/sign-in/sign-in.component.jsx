@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import './sign-in.styles.scss'
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
-import {signInWithGoogle} from '../../firebase/firebase.utils'
+import {auth,signInWithGoogle} from '../../firebase/firebase.utils'
 
 
 
@@ -14,13 +14,25 @@ const SignIn = props => {
         password:''
     }) 
     
-    const handleSubmit = e => {
-        e.preventDefault();
+    const handleSubmit = async e => {
+        try {
+            e.preventDefault();
+            const {email,password} = formState;
+            await auth.signInWithEmailAndPassword(email,password);
+            setFormState({
+                email:'',
+                password:''
+            })
+        } catch(error) {
+            console.error(error);
+        }
+        
+
     }
 
     const handleChange = e => {
         setFormState(oldValue=>{
-            console.log(e);
+            // console.log(e);
             const newValue = {...oldValue}
             newValue[e.target.name] = e.target.value;
             return newValue;
