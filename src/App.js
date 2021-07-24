@@ -17,10 +17,26 @@ function App() {
   const [appAuth,setAppAuth] = useState(null);
 
   useEffect(()=>{
-  let unsubscribeFromAuth = auth.onAuthStateChanged(user=>{
-      setAppAuth(user);
-      createUserProfileDocument(user)
-      console.log(user);
+    
+  let unsubscribeFromAuth = auth.onAuthStateChanged(authUser=>{
+      // setAppAuth(user);
+      if(authUser) {
+        createUserProfileDocument(authUser)
+        .then(userRef=>{
+          userRef.onSnapshot(snapshot=>{
+            setAppAuth({
+              id: snapshot.id,
+              ...snapshot.data()
+            })
+          })
+        })
+
+     
+      } else {
+        setAppAuth(authUser);
+      }
+    
+      // console.log(user);
     });
 
     return unsubscribeFromAuth;
