@@ -49,7 +49,7 @@ const SignIn = props => {
                 <FormInput type='password' label='Password' value={formState.password} name='password' onChange={handleChange} />
                 <div className='buttons'>
                     <CustomButton type='submit'>Submit Now</CustomButton>
-                    <CustomButton isGoogleSignIn onClick={signInWithGoogle} >Sign In With Google</CustomButton>
+                    <CustomButton isGoogleSignIn type='button' onClick={signInWithGoogle} >Sign In With Google</CustomButton>
                 </div>
                 
             </form>
