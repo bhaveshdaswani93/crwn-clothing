@@ -12,9 +12,10 @@ import Header from './components/header/header.component';
 import Checkout from './pages/checkout/checkout.component';
 
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth,createUserProfileDocument } from './firebase/firebase.utils'
+import { auth,createUserProfileDocument,addCollectionAndDocument } from './firebase/firebase.utils'
 import {setCurrentUser} from './redux/user/user.actions'
 import { selectCurrentUser } from './redux/user/user.selectors'
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
 
 
 
@@ -22,7 +23,9 @@ import { selectCurrentUser } from './redux/user/user.selectors'
 
 function App(props) {
 
-  let {setCurrentUser} = props;
+  let {setCurrentUser,collections} = props;
+
+
 
   // const [appAuth,setAppAuth] = useState(null);
 
@@ -44,6 +47,7 @@ function App(props) {
      
       } else {
         setCurrentUser(authUser);
+
       }
     
       // console.log(user);
@@ -52,6 +56,8 @@ function App(props) {
     return unsubscribeFromAuth;
 
   },[])
+
+  // useEffect(()=>  addCollectionAndDocument('collections',collections.map(({title,items})=>({title,items}))),[])
 
 
   return (
@@ -71,7 +77,8 @@ function App(props) {
 
 const mapStateToProps = createStructuredSelector(
   {
-    currentUser:selectCurrentUser
+    currentUser:selectCurrentUser,
+    collections:selectCollectionsForPreview
   }
 )
 
