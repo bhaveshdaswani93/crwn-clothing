@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import axios from 'axios'
 
 import './stripe-element.styles.scss'
 
@@ -28,12 +29,14 @@ const useOptions = () => {
   return options;
 };
 
-const CardForm = () => {
+const CardForm = (props) => {
+  // console.log(amount);
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
-
+  console.log(props);
   const handleSubmit = async event => {
+    
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -52,7 +55,12 @@ const CardForm = () => {
     if(payload.error) {
       alert('Error: '+payload.error.message)
     } else {
-      alert('Payment Successful.');
+      axios.post('payment',{
+        amount:props.total,
+        token:payload.paymentMethod
+      }).then(success=>alert('payment successful'))
+      .catch(e=>{console.log(e);  alert('There was an issue with your payment, Please sure you use the provided credit card.')})
+      // alert('Payment Successful.');
     }
   };
 

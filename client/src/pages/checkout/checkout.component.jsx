@@ -37,7 +37,7 @@ const CheckoutPage = ({cartItems,total})=>(
             4242 4242 4242 4242 - Exp: 12/25 - CVV: 123 - ZIP: 12345
         </div>
 
-        <CheckoutForm />
+        <CheckoutForm total={total} />
 
     </div>
 )
