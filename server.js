@@ -29,7 +29,7 @@ app.post('/payment', function(req,res){
         const body = {
             amount: req.body.amount*100,
             payment_method: req.body.token.id,
-            currency:'usd',
+            currency:'inr',
             confirm:true,
             payment_method_types: ['card'],
             description:"Test Payment"
